@@ -18,13 +18,19 @@ def load_sentiment_model():
 # ----------------------------
 # Stopwords
 # ----------------------------
-STOPWORDS = {
-    "the","and","a","to","of","in","for","on","with",
-    "at","by","an","be","is","are","was","were",
-    "that","this","it","as","from","or","but",
-    "about","into","over","after","before","between",
-    "under","again","further","then","once"
-}
+
+import nltk
+from nltk.corpus import stopwords
+
+# You'll need to download the data first
+nltk.download('stopwords')
+STOPWORDS = set(stopwords.words('english'))
+# STOPWORDS = {
+#     "the","and","a","to","of","in","for","on","with",
+#     "at","by","an","be","is","are","was","were",
+#     "that","this","it","as","from","or","but",
+#     "about","into","over","after","before","between",
+#     "under","again","further","then","once","have","has","its","said","will","also"}
 
 # ----------------------------
 # Text cleaning

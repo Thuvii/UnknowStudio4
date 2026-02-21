@@ -26,7 +26,7 @@ SENTIMENT_KEYWORDS = [
     "public opinion", "public perception", "public sentiment",
     "support for nuclear", "anti-nuclear", "pro-nuclear",
     "public trust", "risk perception", "nuclear energy debate",
-    "energy controversy", "ommunity response", "public acceptance",
+    "energy controversy", "community response", "public acceptance",
     "industry reputation", "advocacy",
 ]
 
