@@ -61,6 +61,13 @@ source .venv/bin/activate
 ```
 
 
+Install requirement
+```bash
+pip install -r requirements.txt
+```
+
+
+
 run the code
 
 ```bash
