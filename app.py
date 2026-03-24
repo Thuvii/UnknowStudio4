@@ -1,14 +1,29 @@
 import streamlit as st
+import numpy as np
 import os
 import matplotlib.pyplot as plt
-from nlp_utils import (
+from sklearn.feature_extraction.text import TfidfVectorizer
+from nlp_utils_copy import (
     load_sentiment_model,
     get_word_frequency,
     analyze_sentiment,
     extract_date_from_filename,
     load_sentiment_cache,
-    save_sentiment_cache
+    save_sentiment_cache,
+    clean_text,
+    remove_proper_nouns, 
+    STOPWORDS
 )
+from sklearn.decomposition import LatentDirichletAllocation
+from sklearn.feature_extraction.text import CountVectorizer
+
+
+NOISE_WORDS = {
+    "new", "today", "year", "years", "time", "week",
+    "day", "said", "also", "one", "two", "first","ann","ans"
+}
+
+from collections import Counter
 
 ARTICLE_FOLDER = "ans_articles"
 CACHE_FILE = "sentiment_cache.csv"
@@ -108,8 +123,7 @@ st.pyplot(fig3)
 
 st.subheader("Top Overall Word Frequency")
 
-from collections import Counter
-from nlp_utils import clean_text, STOPWORDS
+
 
 overall_counter = Counter()
 
@@ -118,12 +132,19 @@ for file in files:
         text = f.read()
 
     cleaned = clean_text(text)
+    tokens = cleaned.split()
+    tokens = remove_proper_nouns(tokens)
+
     words = [
-        w for w in cleaned.split()
-        if w not in STOPWORDS and len(w) > 2
+        w for w in tokens
+        if w not in STOPWORDS
+        and w not in NOISE_WORDS
+        and len(w) > 3
     ]
 
-    overall_counter.update(words)
+    overall_counter = Counter({
+    w: c for w, c in overall_counter.items() if c > 2
+})
 
 top_words = overall_counter.most_common(20)
 
@@ -142,8 +163,6 @@ if top_words:
 # positive vs negative words
 st.subheader("Vocabulary Comparison: Positive vs Negative Articles")
 
-from collections import Counter
-from nlp_utils import clean_text, STOPWORDS
 
 positive_counter = Counter()
 negative_counter = Counter()
@@ -160,16 +179,26 @@ for file, score in sentiment_cache.items():
         text = f.read()
 
     cleaned = clean_text(text)
+    tokens = cleaned.split()
+    tokens = remove_proper_nouns(tokens)
+
     words = [
-        w for w in cleaned.split()
-        if w not in STOPWORDS and len(w) > 2
+        w for w in tokens
+        if w not in STOPWORDS
+        and w not in NOISE_WORDS
+        and len(w) > 3
     ]
 
     if category == "positive":
         positive_counter.update(words)
     else:
         negative_counter.update(words)
-
+    positive_counter = Counter({
+        w: c for w, c in positive_counter.items() if c > 2
+    })
+    negative_counter = Counter({
+        w: c for w, c in negative_counter.items() if c > 2
+    })
 
 top_positive = positive_counter.most_common(15)
 top_negative = negative_counter.most_common(15)
@@ -196,11 +225,24 @@ if top_negative:
     plt.xticks(rotation=45)
     st.pyplot(fig_neg)
     
+#TFDIF
 
+#TFDIF preprocess clean text
+def preprocess_for_tfidf(text):
+    cleaned = clean_text(text)
+    tokens = cleaned.split()
+    tokens = remove_proper_nouns(tokens)
+
+    tokens = [
+        w for w in tokens
+        if w not in STOPWORDS
+        and w not in NOISE_WORDS
+        and len(w) > 3
+    ]
+
+    return " ".join(tokens)
 
 st.subheader("TF-IDF Comparison (Positive vs Negative)")
-
-from sklearn.feature_extraction.text import TfidfVectorizer
 
 positive_docs = []
 negative_docs = []
@@ -209,10 +251,12 @@ for file, score in sentiment_cache.items():
     with open(os.path.join(ARTICLE_FOLDER, file), "r", encoding="utf-8") as f:
         text = f.read()
 
+    processed = preprocess_for_tfidf(text)
+
     if score > 0.05:
-        positive_docs.append(text)
+        positive_docs.append(processed)
     elif score < -0.05:
-        negative_docs.append(text)
+        negative_docs.append(processed)
 
 if positive_docs and negative_docs:
 
@@ -221,15 +265,16 @@ if positive_docs and negative_docs:
     labels = ["positive"] * len(positive_docs) + ["negative"] * len(negative_docs)
 
     vectorizer = TfidfVectorizer(
-        stop_words=list(STOPWORDS),
-        max_features=2000,
-        ngram_range=(1, 1)
+        stop_words="english", 
+        ngram_range=(1, 2),     
+        min_df=2,               
+        max_df=0.85 
     )
 
     tfidf_matrix = vectorizer.fit_transform(all_docs)
     feature_names = vectorizer.get_feature_names_out()
 
-    import numpy as np
+
 
  
     pos_matrix = tfidf_matrix[:len(positive_docs)]
@@ -266,8 +311,6 @@ else:
 #topic modeling
 st.subheader("Topic Modeling per Sentiment")
 
-from sklearn.decomposition import LatentDirichletAllocation
-from sklearn.feature_extraction.text import CountVectorizer
 
 def show_topics(model, feature_names, n_top_words=10):
     topics = []

@@ -91,6 +91,7 @@ safetensors==0.7.0
 scikit-learn==1.8.0
 scipy==1.17.1
 selenium==4.40.0
+sentence-transformers==5.3.0
 setuptools==82.0.0
 shellingham==1.5.4
 six==1.17.0
@@ -121,6 +122,7 @@ types-urllib3==1.26.25.14
 typing-extensions==4.15.0
 tzdata==2025.3
 urllib3==2.6.3
+watchdog==6.0.0
 wcwidth==0.6.0
 webdriver-manager==4.0.2
 webencodings==0.5.1
