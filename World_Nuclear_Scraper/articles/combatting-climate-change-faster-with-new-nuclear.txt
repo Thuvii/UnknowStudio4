@@ -1,0 +1,37 @@
+World Nuclear Association recently released theWorld Nuclear Performance Report, providing information on reactors currently operating and under construction.
+
+The report highlights how electricity generation from nuclear has increased for the sixth successive year, with nuclear generation in Asia increasing by 12%.
+
+The first five reactors in the world reached 50 years of operations, and reactor performance remained high throughout the lifetime of reactors, supporting the case for reactors to be expected to operate for 60 years, with 80 years or more possible.
+
+Today theWorld Nuclear Industry Status Report (WNISR)[1]was released. Published by Mycle Schneider, described as an anti-nuclear activist by WISE-Paris - an organization he founded, this is the latest edition of a report that takes a negative slant on nuclear energy. The report questions whether nuclear energy can be built at sufficient speed and scale to help tackle climate change.
+
+Several studies have shown that nuclear energy has a proven track record in providing new generation faster than other low-carbon options. For example, a 2016 paper byCao­et al[2]published inSciencejournal, shows that in many countries nuclear generation provides on average more low-carbon kWh per year than solar or wind.
+
+Even theWNISR presentation[3]of the Cao data, which adds in additional countries that have not yet deployed nuclear energy, shows that new nuclear capacity has been deployed faster than wind, solar and other non-hydro renewables combined in 12 out of 18 countries.
+
+The WNISR admits that the average construction time for reactors over the last decade is lower than it has been “in years” and notes that there is a wide range of construction times for reactors, with the fastest being just over 4 years.
+
+These faster construction times demonstrate what can be achieved when countries commit to new nuclear build programmes that learn from first-of-a-kind projects to deliver series build more quickly.
+
+The average construction times in WNISR are inflated because of the way it treats reactor projects that were halted for many years and restarted at a later date. For example, construction started on Watts Bar 2 in 1973 and was halted in 1985. The project was restarted more than 20 years later in 2007 and the reactor was grid connected in 2016. Despite there being no construction for more than 20 years, WNISR treats the construction time as being a continuous 43 years. Inclusion of such outliers skews the average construction times reported upwards.
+
+The WNISR also hugely overestimates the number of reactors due to retire in the coming decade because it assumes that reactors close when they reach 40 years of operation – despite the fact that more than 15% of the world’s operating reactors are over 40 years old, with the expectation that many will continue in operation for much longer. Lifetime extensions for 60 years have been granted  for many reactors, and some are now applying to operate for 80 years.
+
+One area where the World Nuclear Performance Report and WNISR are in agreement is that the current rate of new nuclear construction is not sufficient to effectively tackle climate change. This is a view shared by international energy expert bodies.
+
+The IEA released a report this year,Nuclear Power in a Clean Energy Future[4],which concluded that a failure to invest in existing and new nuclear plants in advanced economies would have implications for emissions, costs and energy security.  It also concluded that without action to provide more support for nuclear power, global efforts to transition to a cleaner energy system will become drastically harder and more costly.
+
+If we are going to stand any chance of combatting climate change and keeping global temperature increases to 1.5oC and at the same time provide reliable and affordable electricity to all, we are going to need nuclear energy.
+
+The nuclear industry has set a goal to generate 25% of the world’s electricity before 2050, as part of an electricity mix making optimal use of all low-carbon generation technologies. To achieve this will require the construction of around 1000 GWe of new nuclear capacity.
+
+This is a credible and achievable target, but will require action to address a number of barriers. A level playing field will be needed to fully value the low-carbon and reliable generation from nuclear energy. We need to create harmonized regulatory processes to provide a more internationally consistent, efficient and predictable nuclear licensing regime, and we need to create an effective safety paradigm focusing on genuine public wellbeing where the health, environmental and safety benefits of nuclear are better understood and valued when compared with other energy sources.
+
+[1]https://www.worldnuclearreport.org/IMG/pdf/wnisr2019-lr.pdf
+
+[2]https://science.sciencemag.org/content/353/6299/547
+
+[3]https://www.worldnuclearreport.org/IMG/pdf/figure_53_nukecc-increasecarbonfree.pdf
+
+[4]https://webstore.iea.org/nuclear-power-in-a-clean-energy-system﻿
