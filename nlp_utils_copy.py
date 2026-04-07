@@ -9,7 +9,10 @@ from nltk import pos_tag
 
 from transformers import pipeline, AutoTokenizer
 
-from sentence_transformers import SentenceTransformer
+try:
+    from sentence_transformers import SentenceTransformer
+except ImportError:
+    SentenceTransformer = None
 
 try:
     from nltk.corpus import stopwords
@@ -26,12 +29,17 @@ except LookupError:
         nltk.download("averaged_perceptron_tagger")
 
 STOPWORDS = set(stopwords.words("english"))
+SENTIMENT_MODEL_NAME = "distilbert-base-uncased-finetuned-sst-2-english"
+SENTIMENT_TOKENIZER = AutoTokenizer.from_pretrained(SENTIMENT_MODEL_NAME)
 
 # load bert model
 def load_sentiment_model():
     return pipeline(
         "sentiment-analysis",
-        model="distilbert-base-uncased-finetuned-sst-2-english"
+        model=SENTIMENT_MODEL_NAME,
+        tokenizer=SENTIMENT_TOKENIZER,
+        truncation=True,
+        max_length=SENTIMENT_TOKENIZER.model_max_length,
     )
 
 #clean text
@@ -66,11 +74,18 @@ def get_word_frequency(text, top_n=20, remove_names=True):
     return freq.most_common(top_n)
 
 # -----
-def chunk_text(text, max_words=400):
-    words = text.split()
+def chunk_text(text, max_tokens=None):
+    max_tokens = max_tokens or SENTIMENT_TOKENIZER.model_max_length
+    encoded = SENTIMENT_TOKENIZER(
+        text,
+        truncation=True,
+        return_overflowing_tokens=True,
+        max_length=max_tokens,
+    )
+
     return [
-        " ".join(words[i:i+max_words])
-        for i in range(0, len(words), max_words)
+        SENTIMENT_TOKENIZER.decode(input_ids, skip_special_tokens=True)
+        for input_ids in encoded["input_ids"]
     ]
 
 # ------
@@ -81,7 +96,11 @@ def analyze_sentiment(text, model):
     count = 0
 
     for chunk in chunks:
-        result = model(chunk)[0]
+        result = model(
+            chunk,
+            truncation=True,
+            max_length=SENTIMENT_TOKENIZER.model_max_length,
+        )[0]
 
         if result["label"] == "POSITIVE":
             score += result["score"]
@@ -123,6 +142,8 @@ def save_sentiment_cache(cache_file, cache_dict):
 #streamlit stuff
 
 def load_embed_model():
+    if SentenceTransformer is None:
+        raise ImportError("sentence_transformers is required for embedding features")
     return SentenceTransformer("all-MiniLM-L6-v2")
 
 def load_explainer():

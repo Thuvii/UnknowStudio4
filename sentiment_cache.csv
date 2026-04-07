@@ -1,51 +1,282 @@
 filename,score
-NNSA to conduct NEPA review of plutonium pit production.txt,-0.9877505898475647
-Wall Street Journal Challenges facing nuclear industry.txt,-0.9181917309761047
-Mike Kramer Navigating power deals in the new data economy.txt,0.9869296550750732
-NEUP honors young ANS members with R&D awards.txt,0.9972274899482727
-NRC’s David Wright visits the Hill and more NRC news.txt,0.7867339849472046
-Natalie Cannon is passionate about nuclear policy.txt,0.992213785648346
-West Virginia couple use ANS Geiger counters for nuclear education.txt,-0.8452946543693542
-NEDHO A conversation with Seungjin Kim.txt,0.82121342420578
-Nuclear technology for today and tomorrow.txt,0.9995203018188477
-Software modeling to validate the safety of nuclear disposal sites.txt,0.9968129992485046
-The nuclear outlook on the Big Beautiful Bill.txt,-0.99347984790802
-Deep Isolation asks states to include waste disposal in their nuclear strategy.txt,-0.9750787019729614
-Plans for Poland’s first nuclear power plant continue to progress.txt,0.9959613680839539
-Hash Hashemian Visionary leadership.txt,0.9965873956680298
-Nuclear advocates fight potential cuts at DOE’s Loan Programs Office.txt,-0.9935907125473022
-World Bank to fund SMRs and nuclear life extensions.txt,0.9626274704933167
-"My story Abraham Weitzberg, ANS member since 1962.txt",0.5924836993217468
-NEA visit to Mongolia focuses on nuclear energy development.txt,0.9964259266853333
-Seconds Matter Rethinking Nuclear Facility Security for the Modern Threat Landscape.txt,0.9965303540229797
-Nuclear News 40 Under 40 The second annual list is published.txt,0.9981889128684998
-State legislation Bipartisan support growing for nuclear energy in Wisconsin.txt,-0.6259967684745789
-From uncertainty to vitality The future of nuclear energy in Illinois.txt,0.9778147339820862
-Waste Management 2025 Building a new era of nuclear.txt,0.9974660873413086
-The RAIN scale A good intention that falls short.txt,-0.999250590801239
-The task ahead.txt,0.9972683191299438
-Jeff Place on INPO’s strategy for industry growth.txt,0.986194372177124
-From quad to grid Where thought leadership sparks civic dialogue.txt,0.9940730929374695
-"FPoliSolutions demonstrates RISE, an RIPB systems engineering tool.txt",-0.7854871153831482
-Meta’s data centers and nuclear power.txt,-0.883078932762146
-The spotlight shines on a nuclear influencer.txt,0.9917207956314087
-NN Asks Why are states racing to get back into nuclear.txt,0.9908692836761475
-ANS names 2026 Congressional Fellows.txt,0.9977458119392395
-ANS’s Craig Piercy discusses nuclear energy on podcast.txt,0.9851696491241455
-2025 Congressional Fellows reflect on their terms.txt,0.9961220622062683
-NECX debut Shaping the next era of energy.txt,0.9935644268989563
-"Constellation, Meta sign 20-year deal to source entire Illinois nuclear plant’s power.txt",-0.9836841821670532
-Smarter waste strategies Helping deliver on the promise of advanced nuclear.txt,0.9872736930847168
-How can radiation protection professionals support the global demand for nuclear energy.txt,0.9914554953575134
-"New coolants, new fuels A new generation of university reactors.txt",0.8335858583450317
-The State of Nuclear The industry today.txt,0.9978139400482178
-Ted Garrish faces Senate committee for DOE nuclear post.txt,0.6140612363815308
-"From Capitol Hill Nuclear is back, critical for America’s energy future.txt",0.9462780356407166
-Where states stand on nuclear.txt,0.9986762404441833
-NEI chief executive highlights “unlimited potential” for nuclear in state of the industry address.txt,0.7148743271827698
-2025 The year in nuclear.txt,0.9970274567604065
-Recent surveys confirm high levels of U.S. nuclear support.txt,-0.8773359060287476
-State legislation Colorado redefines nuclear as “clean energy resource”.txt,0.9273415207862854
-"Delivering new nuclear on time, the first time.txt",-0.926577091217041
-Health physicists respond to EO.txt,0.9854021072387695
-North Carolina Collaboratory is funding a future of advanced reactors.txt,0.9930858612060547
+ANS::NNSA to conduct NEPA review of plutonium pit production.txt,-0.9877505898475647
+ANS::Wall Street Journal Challenges facing nuclear industry.txt,-0.9181917309761047
+ANS::Mike Kramer Navigating power deals in the new data economy.txt,0.9869296550750732
+ANS::NEUP honors young ANS members with R&D awards.txt,0.9972274899482727
+ANS::NRC’s David Wright visits the Hill and more NRC news.txt,0.7867339849472046
+ANS::Natalie Cannon is passionate about nuclear policy.txt,0.992213785648346
+ANS::West Virginia couple use ANS Geiger counters for nuclear education.txt,-0.8452946543693542
+ANS::NEDHO A conversation with Seungjin Kim.txt,0.82121342420578
+ANS::Nuclear technology for today and tomorrow.txt,0.9995203018188477
+ANS::Software modeling to validate the safety of nuclear disposal sites.txt,0.9968129992485046
+ANS::The nuclear outlook on the Big Beautiful Bill.txt,-0.99347984790802
+ANS::Deep Isolation asks states to include waste disposal in their nuclear strategy.txt,-0.9750787019729614
+ANS::Plans for Poland’s first nuclear power plant continue to progress.txt,0.9959613680839539
+ANS::Hash Hashemian Visionary leadership.txt,0.9965873956680298
+ANS::Nuclear advocates fight potential cuts at DOE’s Loan Programs Office.txt,-0.9935907125473022
+ANS::World Bank to fund SMRs and nuclear life extensions.txt,0.9626274704933167
+"ANS::My story Abraham Weitzberg, ANS member since 1962.txt",0.5924836993217468
+ANS::NEA visit to Mongolia focuses on nuclear energy development.txt,0.9964259266853333
+ANS::Seconds Matter Rethinking Nuclear Facility Security for the Modern Threat Landscape.txt,0.9965303540229797
+ANS::Nuclear News 40 Under 40 The second annual list is published.txt,0.9981889128684998
+ANS::State legislation Bipartisan support growing for nuclear energy in Wisconsin.txt,-0.6259967684745789
+ANS::From uncertainty to vitality The future of nuclear energy in Illinois.txt,0.9778147339820862
+ANS::Waste Management 2025 Building a new era of nuclear.txt,0.9974660873413086
+ANS::The RAIN scale A good intention that falls short.txt,-0.999250590801239
+ANS::The task ahead.txt,0.9972683191299438
+ANS::Jeff Place on INPO’s strategy for industry growth.txt,0.986194372177124
+ANS::From quad to grid Where thought leadership sparks civic dialogue.txt,0.9940730929374695
+"ANS::FPoliSolutions demonstrates RISE, an RIPB systems engineering tool.txt",-0.7854871153831482
+ANS::Meta’s data centers and nuclear power.txt,-0.883078932762146
+ANS::The spotlight shines on a nuclear influencer.txt,0.9917207956314087
+ANS::NN Asks Why are states racing to get back into nuclear.txt,0.9908692836761475
+ANS::ANS names 2026 Congressional Fellows.txt,0.9977458119392395
+ANS::ANS’s Craig Piercy discusses nuclear energy on podcast.txt,0.9851696491241455
+ANS::2025 Congressional Fellows reflect on their terms.txt,0.9961220622062683
+ANS::NECX debut Shaping the next era of energy.txt,0.9935644268989563
+"ANS::Constellation, Meta sign 20-year deal to source entire Illinois nuclear plant’s power.txt",-0.9836841821670532
+ANS::Smarter waste strategies Helping deliver on the promise of advanced nuclear.txt,0.9872736930847168
+ANS::How can radiation protection professionals support the global demand for nuclear energy.txt,0.9914554953575134
+"ANS::New coolants, new fuels A new generation of university reactors.txt",0.8335858583450317
+ANS::The State of Nuclear The industry today.txt,0.9978139400482178
+ANS::Ted Garrish faces Senate committee for DOE nuclear post.txt,0.6140612363815308
+"ANS::From Capitol Hill Nuclear is back, critical for America’s energy future.txt",0.9462780356407166
+ANS::Where states stand on nuclear.txt,0.9986762404441833
+ANS::NEI chief executive highlights “unlimited potential” for nuclear in state of the industry address.txt,0.7148743271827698
+ANS::2025 The year in nuclear.txt,0.9970274567604065
+ANS::Recent surveys confirm high levels of U.S. nuclear support.txt,-0.8773359060287476
+ANS::State legislation Colorado redefines nuclear as “clean energy resource”.txt,0.9273415207862854
+"ANS::Delivering new nuclear on time, the first time.txt",-0.926577091217041
+ANS::Health physicists respond to EO.txt,0.9854021072387695
+ANS::North Carolina Collaboratory is funding a future of advanced reactors.txt,0.9930858612060547
+"ANS::New PM, restarts, ongoing cleanup on 15th anniversary of Fukushima accident.txt",-0.30070839325586957
+ANS::Nuclear power plant proximity study sparks controversy.txt,-0.34005441268285114
+ANS::On moving fast and breaking things.txt,0.18741607666015625
+"ANS::Von der Leyen shares regrets, growth plans at European nuclear summit.txt",0.08239999413490295
+ANS::Washington legislators look to nuclear.txt,-0.66439288854599
+World Nuclear::1000-gigawatts-of-new-nuclear-capacity-will-suppor.txt,0.97806715965271
+World Nuclear::14-major-global-banks-and-financial-institutions-express-support-to-triple-nuclear-energy-by-2050-23-september-2024.txt,0.9982805252075195
+World Nuclear::a-dynamic-may-for-world-nuclear-association-global-engagement-in-action.txt,0.9961823225021362
+World Nuclear::a-global-vision-to-triple-nuclear-capacity-by-2050.txt,0.9972462952136993
+World Nuclear::action-is-needed-to-expand-the-share-of-nuclear.txt,0.9580076038837433
+World Nuclear::african-commission-on-nuclear-energy-afcone-and-world-nuclear-association-join-together-to-support-sustainable-development-using-nuclear-energy-in-afr.txt,0.9991318583488464
+World Nuclear::african-energy-chamber-and-world-nuclear-associati.txt,0.999593049287796
+World Nuclear::another-new-country-introduces-nuclear-energy-turk.txt,-0.13077756762504578
+World Nuclear::asia-leading-the-way-with-new-nuclear.txt,0.9840031266212463
+World Nuclear::asia-needs-nuclear-energy-to-supply-clean-and-reli.txt,0.9915517568588257
+World Nuclear::asia-s-projected-$781-billion-nuclear-energy-inves.txt,0.9948292374610901
+World Nuclear::at-iaea-conference-nuclear-industry-says-it-is-re.txt,0.003999918699264526
+World Nuclear::at-siew-2025-nuclear-emerges-as-a-key-pillar-of-southeast-asias-energy-transition.txt,0.996671587228775
+World Nuclear::australian-inquiry-recommends-lifting-the-ban-(2).txt,0.998805046081543
+World Nuclear::austrian-nuclear-objection-undermines-right-of-ene.txt,-0.9873784184455872
+World Nuclear::barakah-1-starts-commercial-operations-beginning.txt,0.9961846470832825
+World Nuclear::barakah-nuclear-power-plant-takes-a-big-step-forwa.txt,0.9923533797264099
+World Nuclear::barakah-unit-1-construction-completion-a-great-ach.txt,0.9966297745704651
+World Nuclear::barriers-to-nuclear-generation-must-be-removed.txt,0.0036715269088745117
+World Nuclear::belarus-nuclear-power-plant-a-vital-contribution-t.txt,0.9973172545433044
+World Nuclear::brazil-conference-highlights-nuclear-performance-a.txt,0.9988694787025452
+World Nuclear::bringing-a-global-nuclear-perspective-to-ny-climate-week.txt,0.9983009397983551
+World Nuclear::bringing-global-ambition-to-theadvanced-reactors-summitxiii.txt,0.9964577257633209
+World Nuclear::bulgaria-should-accelerate-new-nuclear-build.txt,0.9991549253463745
+World Nuclear::call-for-action-on-nuclear-energy.txt,0.9575131833553314
+World Nuclear::celebrate-the-50th-edition-of-the-world-nuclear-symposium-with-us.txt,0.9992690086364746
+World Nuclear::celebrating-advanced-nuclear.txt,0.7599336802959442
+World Nuclear::celebrating-four-decades-association-highlights-korean-nuclear-industrys-achievements.txt,0.9946658909320831
+World Nuclear::ceraweek-event-tripling-nuclear-energy-capacity-by-2050-unleashing-nuclears-potential-to-power-data-centers-refineries-manufacturing-and-beyond.txt,0.9872359931468964
+World Nuclear::climate-leaders-need-nuclear-energy-to-achieve-net.txt,0.9929785132408142
+World Nuclear::combatting-climate-change-faster-with-new-nuclear.txt,-0.32873642444610596
+World Nuclear::comment-on-the-new-uk-energy-security-strategy.txt,0.9965506792068481
+World Nuclear::cop-22-must-enable-paris-agreement-objectives-to-b.txt,-0.5826815962791443
+World Nuclear::cop-25-nuclear-innovation-for-clean-and-sustainabl.txt,0.996151864528656
+World Nuclear::cop28-agreement-recognizes-accelerating-nuclear-as.txt,0.9725614190101624
+World Nuclear::cop29-in-baku-a-landmark-event-for-the-global-nuclear-industry.txt,0.9992661476135254
+World Nuclear::energizing-development-clean-air-and-energy-transition.txt,0.9737541675567627
+World Nuclear::energizing-development-desalination.txt,0.9944848418235779
+World Nuclear::energizing-technology.txt,0.9826244711875916
+World Nuclear::energizing-the-future-highlights-from-energy-users-summit.txt,0.996285080909729
+World Nuclear::energy-for-tomorrow-time-to-recognise-nuclear-ener.txt,0.993899941444397
+World Nuclear::energy-ministers-include-nuclear-in-the-clean-ener.txt,0.9952324032783508
+World Nuclear::european-parliament-has-chosen-to-listen-to-the-sc.txt,0.9991660118103027
+World Nuclear::exerting-influence-world-nuclear-association-in-the-media-2024.txt,0.9581854045391083
+World Nuclear::experts-join-iaea-nucleareurope-technical-meeting-on-developing-a-sustainable-nuclear-supply-chain-for-near-deployment-reactors.txt,0.9914904832839966
+World Nuclear::experts-tell-cop24-nuclear-energy.txt,0.9949244260787964
+World Nuclear::finance-strategic-summit-at-world-nuclear-symposium-a-qa-with-king-lee-head-of-policy-industry-engagement.txt,0.9960792362689972
+World Nuclear::financing-nuclear-briefing-advances-nuclear-investment-agenda.txt,0.9923044443130493
+World Nuclear::financing-nuclear-briefing-series-at-kpmg-london.txt,0.996329665184021
+World Nuclear::financing-nuclear-briefing-series-hosted-by-stifel.txt,0.333340585231781
+World Nuclear::finland-increases-energy-security-and-clean-energy.txt,0.8881316781044006
+World Nuclear::first-small-modular-reactors-open-a-new-world-of-a.txt,0.9996389150619507
+World Nuclear::floating-nuclear-plants---energizing-progress.txt,0.9974830746650696
+World Nuclear::four-more-countries-endorse-global-declaration-to-triple-nuclear-energy.txt,0.7831884324550629
+World Nuclear::four-topics-from-world-nuclear-associations-january-working-groups-for-the-industry-to-take-forward-in-2025.txt,0.9977297484874725
+World Nuclear::from-cop30-to-asean-2026-shaping-an-era-of-nuclear-energy-delivery-together.txt,0.9969871640205383
+World Nuclear::future-energy-jobs-bill-to-support-clean-energy-s.txt,0.995037853717804
+World Nuclear::g7-pledges-to-accelerate-progress-on-nuclear-for-d.txt,0.9643544554710388
+World Nuclear::global-nuclear-capacity-reaches-400-gwe-as-world-n.txt,0.9982671737670898
+World Nuclear::global-nuclear-communicty-backs-iaea-call-for-safe.txt,0.657862663269043
+World Nuclear::global-nuclear-community-calls-for-immediate-iaea.txt,0.9992997646331787
+World Nuclear::global-nuclear-industry-gathers-in-poland-to-mobilize-2tn-supply-chain-opportunity.txt,0.9983020424842834
+World Nuclear::global-nuclear-industry-leaders-meet-in-london-for-largest-ever-world-nuclear-symposium-as-uae-reactor-barakah-unit-4-enters-commercial-operation-5-se.txt,0.9957085847854614
+World Nuclear::global-nuclear-industry-meets-in-london-to-energize-the-future-now.txt,0.9992208480834961
+World Nuclear::global-trade-tensions-understanding-the-impact-of-tariffs-on-the-nuclear-industry.txt,0.834295779466629
+World Nuclear::governments-recovery-programmes-should-invest-in-n.txt,-0.9089754223823547
+World Nuclear::highlights-from-executive-plenary-day-one.txt,0.9938735961914062
+World Nuclear::highlights-from-executive-plenary-day-two.txt,0.9948450326919556
+World Nuclear::highlights-from-finance-summit.txt,0.987814337015152
+World Nuclear::hinkley-point-c-approval.txt,0.9995853304862976
+World Nuclear::how-we-compile-the-world-nuclear-fuel-report.txt,0.99869304895401
+World Nuclear::iaea-and-world-nuclear-association-formalise-coope.txt,0.996533066034317
+World Nuclear::iaea-ukraine-nuclear-industry-statement.txt,0.9983083009719849
+World Nuclear::icrp-symposium-2025-collaboration-and-clarity-pave-the-way-for-the-next-revision-of-the-radiation-protection-system.txt,0.8788595497608185
+World Nuclear::iea-calls-for-support-for-nuclear.txt,0.9966339468955994
+World Nuclear::iea-nuclear-generation-to-double-to-meet-sustainab.txt,-0.6995001435279846
+World Nuclear::iea-oecd-nea-says-nuclear-global-capacity-must-mor.txt,0.9859868884086609
+World Nuclear::iea-recovery-plan-says-investing-in-nuclear-will-g.txt,0.8853743672370911
+World Nuclear::iea-says-nuclear-is-needed-to-achieve-sustainable.txt,0.007018744945526123
+World Nuclear::india-energyweek-2026-indias-acceleration-towards-newnuclear-energy-capacity.txt,0.9951324661572775
+World Nuclear::india-in-focus-nuclear-ambitions-and-global-engagement.txt,0.9986774325370789
+World Nuclear::industry-statement-at-brussels-nuclear-energy-summ.txt,0.998357355594635
+World Nuclear::industry-statement-to-the-tenth-review-conference.txt,0.9969332019488016
+World Nuclear::international-nuclear-industry-associations-unite-ahead-of-cop30.txt,0.9973052144050598
+World Nuclear::international-women’s-day-world-nuclear-associatio.txt,0.9853475689888
+World Nuclear::invest-in-nuclear-to-succeed-in-the-post-covid-rec.txt,1.0609626770019531e-05
+World Nuclear::japan-reactor-restart-finally-puts-the-country-on.txt,0.9962409734725952
+World Nuclear::landmark-ministerial-declaration-puts-nuclear-ener.txt,0.9959360361099243
+World Nuclear::launch-of-the-nuclear-fuel-report-expanded-summary.txt,0.9985876083374023
+World Nuclear::launch-of-the-world-nuclear-supply-chain-outlook-2.txt,0.9984108209609985
+World Nuclear::launch-of-world-nuclear-performance-report-2016-as.txt,0.9785619974136353
+World Nuclear::major-global-companies-pledge-historic-support-to-triple-nuclear-energy.txt,0.9605342348416647
+World Nuclear::markets-must-recognise-energy-benefits.txt,-0.9964351654052734
+World Nuclear::more-uranium-development-needed-to-meet-demands-of.txt,-0.9806662499904633
+World Nuclear::net-zero-needs-nuclear.txt,0.9917335510253906
+World Nuclear::net-zero-nuclear-founders-call-on-governments-and.txt,0.9988921284675598
+World Nuclear::net-zero-nuclear-industry-pledge-sets-goal-for-tri.txt,0.971108615398407
+World Nuclear::net-zero-nuclear-initiative-calls-for-global-colla.txt,0.9907085498174032
+World Nuclear::new-nuclear-grid-connections-double-now-policy-sup.txt,0.9391869604587555
+World Nuclear::new-outlookreportfindsgovernments-nuclear-energyambitionexceeds-tripling-goal-for-2050.txt,0.021169275045394897
+World Nuclear::new-reactor-will-reduce-fossil-fuel-use-in-korea.txt,0.9986181259155273
+World Nuclear::new-report-nuclear-power-economics-and-project-str.txt,-0.21684592962265015
+World Nuclear::new-report-nuclear-reactor-performance-improves-b.txt,0.7819051146507263
+World Nuclear::new-reports-highlight-nuclear-power-as-a-key-pilla.txt,0.03220978379249573
+World Nuclear::new-strategic-partnership-to-enhance-global-nuclear-security-and-operational-resilience.txt,0.9983037412166595
+World Nuclear::new-study-shows-nuclear-generation-to-grow-but-mor.txt,0.9787493348121643
+World Nuclear::ntpc-joins-world-nuclear-association-as-india-energy-week-features-first-nuclear-zone.txt,0.9962328374385834
+World Nuclear::nuclear-delivers-emissions-reductions-as-iea-set-2.txt,0.8162130415439606
+World Nuclear::nuclear-energy-can-enhance-energy-security-and-add.txt,0.9992827773094177
+World Nuclear::nuclear-energy-can-meet-growing-needs-for-clean-an.txt,0.9824231863021851
+World Nuclear::nuclear-energy-discussed-at-cop24.txt,0.9789742231369019
+World Nuclear::nuclear-energy-eligible-for-sustainable-financing.txt,0.8369405567646027
+World Nuclear::nuclear-energy-in-the-global-spotlight-world-nuclear-associations-media-impact-in-2025.txt,0.9923005104064941
+World Nuclear::nuclear-energy-is-better-than-blackouts.txt,-0.09499967098236084
+World Nuclear::nuclear-energy-is-the-fast-track-to-decarbonizatio.txt,0.20162531733512878
+World Nuclear::nuclear-energy-must-be-included-on-the-path-to-a-l.txt,0.9951298236846924
+World Nuclear::nuclear-energy-needed-to-achieve-ambitious-goals.txt,0.9759617447853088
+World Nuclear::nuclear-energy-takes-centre-stage-powering-the-ai-and-economic-surge.txt,0.41451261937618256
+World Nuclear::nuclear-fuel-report-2023-decarbonization-energy-s.txt,-0.11945930123329163
+World Nuclear::nuclear-generation-increases-for-fifth-successive.txt,-0.9507887959480286
+World Nuclear::nuclear-generation-nears-record-high.txt,0.9947709441184998
+World Nuclear::nuclear-industry-must-act-to-meet-the-challenge-of.txt,0.9961457252502441
+World Nuclear::nuclear-industry-report-shows-how-nuclear-technolo.txt,0.8234722018241882
+World Nuclear::nuclear-industry-stands-ready-to-help-tackle-clima.txt,-0.9874288439750671
+World Nuclear::nuclear-industry-statement-at-g7-ministerial-meeting-on-climate-energy-and-environment.txt,0.9871267676353455
+World Nuclear::nuclear-key-to-a-clean-energy-future-iea-world-ene.txt,-0.9244351387023926
+World Nuclear::nuclear-leaders-issue-call-for-action-at-g7-sappor.txt,0.9984193444252014
+World Nuclear::nuclear-must-be-part-of-the-international-response.txt,0.6391288042068481
+World Nuclear::nuclear-one-of-the-lowest-cost-low-carbon-options.txt,0.7293861508369446
+World Nuclear::nuclears-role-in-bridging-africas-energy-financing-gap.txt,0.9990201393763224
+World Nuclear::nuclear’s-contribution-to-global-climate-change-mi.txt,0.009528934955596924
+World Nuclear::our-industry-night-at-the-iaea-international-conference-on-small-modular-reactors.txt,0.991600513458252
+World Nuclear::overwhelming-support-from-college-of-commissioners.txt,0.9184984564781189
+World Nuclear::poland-needs-nuclear-to-reduce-emissions-and-c.txt,0.983705073595047
+World Nuclear::policies-on-nuclear-plant-are-failing-the-environm.txt,-0.016650915145874023
+World Nuclear::powering-indias-future-the-crucial-role-of-nuclear-energy-in-indias-sustainable-growth.txt,0.9910232126712799
+World Nuclear::powering-the-future-highlights-from-world-nuclear-fuel-cycle-2025.txt,0.9929973483085632
+World Nuclear::projections-for-nuclear-generation-capacity-revise.txt,-0.3237831989924113
+World Nuclear::resilient-nuclear-generation-ensures-reliable-elec.txt,0.007283151149749756
+World Nuclear::response-to-the-ipcc-working-group-iii-ar6-report.txt,0.6273787021636963
+World Nuclear::roadmaps-to-new-nuclear-calling-for-government-action-on-behalf-of-the-nuclear-industry.txt,0.6680116355419159
+World Nuclear::roadmaps-to-new-nuclear-industry-communique.txt,-0.9822851419448853
+World Nuclear::royal-commission’s-conclusions-create-middle-groun.txt,0.8171128034591675
+World Nuclear::six-more-countries-endorse-the-declaration-to-triple-nuclear-energy-by-2050-at-cop29.txt,0.9892112612724304
+World Nuclear::south-africa-endorses-global-declaration-to-triple-nuclear-energy-by-2050.txt,0.9611640870571136
+World Nuclear::south-australian-nuclear-fuel-cycle-royal-commissi.txt,0.9838351011276245
+World Nuclear::south-east-asian-energy-market-looks-to-nuclear.txt,0.9624545574188232
+World Nuclear::south-korean-public-gives-strong-support-for-const.txt,-0.8385388851165771
+World Nuclear::spotlighting-net-zero-nuclear--join-us.txt,0.9981022477149963
+World Nuclear::start-of-construction-of-egypt-s-first-nuclear-pow.txt,0.9993189573287964
+World Nuclear::statement-from-world-nuclear-association-on-recent.txt,0.9931291937828064
+World Nuclear::statement-on-attack-on-the-zaporizhzhia-nuclear-po.txt,0.9955163598060608
+World Nuclear::surge-in-new-nuclear-helps-build-a-sustainable-glo.txt,0.9642070531845093
+World Nuclear::sustained-and-coordinated-investment-required-in-g.txt,0.7728419899940491
+World Nuclear::sweden-abolishes-nuclear-capacity-tax-(10-june-201.txt,0.9965265393257141
+World Nuclear::swiss-nuclear-referendum-result-is-pro-science-and.txt,0.9839808344841003
+World Nuclear::taishan-1-epr-world-nuclear-association-welcomes-n.txt,0.998643696308136
+World Nuclear::the-ipcc-1-5c-special-report-nuclear-energy’s-impo.txt,0.6841951608657837
+World Nuclear::the-new-york-times-interviews-dr-sama-bilbao-y-leon-director-general-of-world-nuclear-association.txt,0.9907480478286743
+World Nuclear::the-nuclear-opportunity.txt,0.999230146408081
+World Nuclear::the-world-energy-congress-talks-nuclear.txt,0.9961040616035461
+World Nuclear::today-europe-has-a-window-of-opportunity-to-make.txt,-0.994434654712677
+World Nuclear::tripling-global-nuclear-energy-by-2050-within-reach-if-governments-act-now.txt,0.0012965500354766846
+World Nuclear::tripling-nuclear-energy-highlighted-at-world-utilities-congress-2025.txt,0.9957352876663208
+World Nuclear::uae-and-south-korea-celebrate-completion-of-baraka.txt,0.9974431991577148
+World Nuclear::un-body-hosts-discussion-on-nuclears-vital-role.txt,0.9973581731319427
+World Nuclear::wano-and-world-nuclear-association-launch-new-part.txt,0.9955590665340424
+World Nuclear::wano-biennial-general-meeting-and-iync-biennial-conference.txt,0.9983327984809875
+World Nuclear::willingness-to-explore-the-facts-about-nuclear-ene.txt,0.9867693185806274
+World Nuclear::wna-comments-on-iea-weo-2023.txt,0.991565078496933
+World Nuclear::wna-welcomes-new-iaea-director-general.txt,0.999649167060852
+World Nuclear::working-groups-in-action-january-2026-highlights.txt,0.9902592897415161
+World Nuclear::working-groups-where-members-shape-the-future-of-nuclear-energy.txt,0.9993940591812134
+World Nuclear::world-bank-shifts-policy-to-fund-nuclear-energy-projects.txt,0.9910310506820679
+World Nuclear::world-bank-should-support-all-clean-energy-technol.txt,-0.9693844318389893
+World Nuclear::world-energy-congress-world-nuclear-association-di.txt,0.9865270256996155
+World Nuclear::world-nuclear-association-and-net-zero-nuclear-initiative-land-in-baku-for-cop29.txt,0.9901538491249084
+World Nuclear::world-nuclear-association-and-the-asean-centre-for.txt,0.9996497631072998
+World Nuclear::world-nuclear-association-and-the-oecd-nuclear-ene.txt,0.9993129968643188
+World Nuclear::world-nuclear-association-and-women-in-nuclear-str.txt,0.9978201389312744
+World Nuclear::world-nuclear-association-announces-new-board-memb.txt,0.9987671375274658
+World Nuclear::world-nuclear-association-announces-new-board-members-14-april-2025.txt,0.9958145320415497
+World Nuclear::world-nuclear-association-appoints-new-director-ge.txt,0.9910476505756378
+World Nuclear::world-nuclear-association-at-davos-2026-shaping-the-global-energy-conversation.txt,0.9960620800654093
+World Nuclear::world-nuclear-association-at-patram-2025.txt,0.9976356029510498
+World Nuclear::world-nuclear-association-at-the-iaea-69th-general-conference.txt,0.9992370009422302
+World Nuclear::world-nuclear-association-attends-the-global-conference-on-energy-ai.txt,0.9822556674480438
+World Nuclear::world-nuclear-association-attends-world-economic-forum-senior-executive-meeting-to-accelerate-nuclear-energy-deployment.txt,0.986479789018631
+World Nuclear::world-nuclear-association-calls-for-all-hazards-ap.txt,-0.6708815693855286
+World Nuclear::world-nuclear-association-calls-on-european-commis.txt,0.6701248288154602
+World Nuclear::world-nuclear-association-comment-on-the-internati.txt,0.9558361172676086
+World Nuclear::world-nuclear-association-expands-global-coalition-to-triple-nuclear-energy-capacity-by-2050-at-cop30.txt,0.9905274212360382
+World Nuclear::world-nuclear-association-highlights-concerns-over-spains-energy-future.txt,0.9296952188014984
+World Nuclear::world-nuclear-association-highlights-industry-collaboration-at-iaea-transport-conference.txt,0.9975526332855225
+World Nuclear::world-nuclear-association-issues-joint-communique-at-roadmaps-to-new-nuclear-19-september-2024.txt,0.9978100657463074
+World Nuclear::world-nuclear-association-joins-un-movement-dedica.txt,0.9984549283981323
+World Nuclear::world-nuclear-association-partners-with-the-university-of-the-west-indies-to-support-stem-education-in-jamaica.txt,0.9992327690124512
+World Nuclear::world-nuclear-association-partners-with-world-ener.txt,0.9987325072288513
+World Nuclear::world-nuclear-association-reaction-to-the-iea-worl.txt,0.99477219581604
+World Nuclear::world-nuclear-association-release-white-paper.txt,0.9909709692001343
+World Nuclear::world-nuclear-association-releases-its-new-technic.txt,0.9021677374839783
+World Nuclear::world-nuclear-association-reponse-to-the-committee.txt,0.06369218230247498
+World Nuclear::world-nuclear-association-response-to-the-iea-nucl.txt,0.9978927969932556
+World Nuclear::world-nuclear-association-response-to-the-internat.txt,-0.9669922739267349
+World Nuclear::world-nuclear-association-showcases-industry-leadership-at-the-iaea-69th-general-conference.txt,0.9971314271291097
+World Nuclear::world-nuclear-association-signs-mou-with-uzatom-in-uzbekistan-to-promote-nuclear-energy-co-operation.txt,0.9958335161209106
+World Nuclear::world-nuclear-association-strengthens-global-nuclear-finance-collaboration-to-advance-tripling-goal.txt,0.9888708293437958
+World Nuclear::world-nuclear-association-welcomes-grid-connection.txt,0.9973324537277222
+World Nuclear::world-nuclear-association-welcomes-hinkley-point-c.txt,0.9965202808380127
+World Nuclear::world-nuclear-association-welcomes-independent-taskforces-recommendations-for-streamlined-nuclear-regulations-and-urges-adoption-of-a-delivery-mindset.txt,0.9955819845199585
+World Nuclear::world-nuclear-association-welcomes-microsoft-corporation-as-newest-member.txt,0.9993547201156616
+World Nuclear::world-nuclear-association-welcomes-the-ieas-report-on-nuclear-energy.txt,0.9951228499412537
+World Nuclear::world-nuclear-association-will-support-the-24th-wo.txt,0.9991369545459747
+World Nuclear::world-nuclear-association’s-reaction-to-the-iea’s.txt,0.9962610602378845
+World Nuclear::world-nuclear-fuel-report-2025-investment-in-nuclear-fuel-cycle-needed-as-demand-for-nuclear-power-grows.txt,0.9829588532447815
+World Nuclear::world-nuclear-performance-report-2016-launch.txt,0.9898461699485779
+World Nuclear::world-nuclear-performance-report-2018.txt,0.5813241600990295
+World Nuclear::world-nuclear-performance-report-2019-asia-edition.txt,0.9925664663314819
+World Nuclear::world-nuclear-performance-report-2022-highligh-(1).txt,0.9621881246566772
+World Nuclear::world-nuclear-performance-report-2023-highlights-n.txt,-0.8598102331161499
+World Nuclear::world-nuclear-performance-report-2024-highlights-increase-in-global-reactor-generation-performance-20-august-2024.txt,0.879688173532486
+World Nuclear::world-nuclear-performance-report-2025-nuclear-delivers-record-breaking-year-in-electricity-generation.txt,0.9189134836196899
+World Nuclear::world-nuclear-performance-to-be-highlighted-at-ann.txt,-0.9831070899963379
+World Nuclear::world-nuclear-supply-chain-2025-what-to-expect-who-to-watch.txt,0.5623389184474945
+World Nuclear::world-nuclear-supply-chain-conference-2025-building-the-future-for-nuclear-energy.txt,0.9985089103380839
+World Nuclear::﻿world-nuclear-performance-report-2019-launched.txt,0.2159310281276703

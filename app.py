@@ -1,351 +1,435 @@
-import streamlit as st
-import numpy as np
 import os
-import matplotlib.pyplot as plt
-from sklearn.feature_extraction.text import TfidfVectorizer
+from collections import Counter
+
+import altair as alt
+import pandas as pd
+import streamlit as st
+
 from nlp_utils_copy import (
-    load_sentiment_model,
-    get_word_frequency,
+    STOPWORDS,
     analyze_sentiment,
-    extract_date_from_filename,
-    load_sentiment_cache,
-    save_sentiment_cache,
     clean_text,
-    remove_proper_nouns, 
-    STOPWORDS
+    get_word_frequency,
+    load_sentiment_cache,
+    load_sentiment_model,
+    remove_proper_nouns,
+    save_sentiment_cache,
 )
-from sklearn.decomposition import LatentDirichletAllocation
-from sklearn.feature_extraction.text import CountVectorizer
 
 
 NOISE_WORDS = {
-    "new", "today", "year", "years", "time", "week",
-    "day", "said", "also", "one", "two", "first","ann","ans"
+    "new",
+    "today",
+    "year",
+    "years",
+    "time",
+    "week",
+    "day",
+    "said",
+    "also",
+    "one",
+    "two",
+    "first",
+    "ann",
+    "ans",
+    "world",
+    "nuclear",
+    "energy",
 }
 
-from collections import Counter
-
-ARTICLE_FOLDER = "ans_articles"
+ARTICLE_FOLDERS = {
+    "ANS": "ans_articles",
+    "World Nuclear": os.path.join("World_Nuclear_Scraper", "articles"),
+}
 CACHE_FILE = "sentiment_cache.csv"
+
+
+def build_article_index():
+    article_index = {}
+
+    for source_name, folder in ARTICLE_FOLDERS.items():
+        if not os.path.isdir(folder):
+            continue
+
+        for filename in os.listdir(folder):
+            if not filename.endswith(".txt"):
+                continue
+
+            article_id = f"{source_name}::{filename}"
+            article_index[article_id] = {
+                "source": source_name,
+                "filename": filename,
+                "path": os.path.join(folder, filename),
+                "label": f"[{source_name}] {filename}",
+            }
+
+    return dict(sorted(article_index.items(), key=lambda item: item[1]["label"].lower()))
+
+
+def normalize_cache_keys(cache_dict, articles):
+    normalized_cache = {}
+
+    for cache_key, score in cache_dict.items():
+        if cache_key in articles:
+            normalized_cache[cache_key] = score
+            continue
+
+        legacy_ans_key = f"ANS::{cache_key}"
+        if legacy_ans_key in articles:
+            normalized_cache[legacy_ans_key] = score
+
+    return normalized_cache
+
+
+def score_to_label(score):
+    if score > 0.05:
+        return "Positive"
+    if score < -0.05:
+        return "Negative"
+    return "Neutral"
+
+
+def preprocess_tokens(text):
+    cleaned = clean_text(text)
+    tokens = cleaned.split()
+    tokens = remove_proper_nouns(tokens)
+
+    return [
+        token
+        for token in tokens
+        if token not in STOPWORDS
+        and token not in NOISE_WORDS
+        and len(token) > 3
+    ]
+
+
+def build_theme_table(records, limit=12):
+    counter = Counter()
+    for record in records:
+        counter.update(record["tokens"])
+
+    rows = [
+        {"Theme": word.title(), "Mentions": count}
+        for word, count in counter.most_common(limit)
+    ]
+    return pd.DataFrame(rows)
+
+
+def build_theme_table_for_frame(frame, limit=10):
+    counter = Counter()
+    for tokens in frame["tokens"]:
+        counter.update(tokens)
+
+    rows = [
+        {"Theme": word.title(), "Mentions": count}
+        for word, count in counter.most_common(limit)
+    ]
+    return pd.DataFrame(rows)
+
 
 @st.cache_resource
 def get_model():
     return load_sentiment_model()
 
-model = get_model()
 
-st.title("News Article NLP Dashboard")
+@st.cache_data(show_spinner=False)
+def load_dashboard_data():
+    articles = build_article_index()
+    cache = normalize_cache_keys(load_sentiment_cache(CACHE_FILE), articles)
+    updated = False
+    records = []
 
-files = [f for f in os.listdir(ARTICLE_FOLDER) if f.endswith(".txt")]
+    model = get_model()
 
-if not files:
+    for article_id, article in articles.items():
+        with open(article["path"], "r", encoding="utf-8") as file:
+            text = file.read()
+
+        if article_id not in cache:
+            cache[article_id] = analyze_sentiment(text, model)
+            updated = True
+
+        score = cache[article_id]
+        tokens = preprocess_tokens(text)
+        word_count = len(text.split())
+
+        records.append(
+            {
+                "article_id": article_id,
+                "source": article["source"],
+                "filename": article["filename"],
+                "label": article["label"],
+                "text": text,
+                "sentiment_score": score,
+                "sentiment_label": score_to_label(score),
+                "word_count": word_count,
+                "tokens": tokens,
+            }
+        )
+
+    if updated:
+        save_sentiment_cache(CACHE_FILE, cache)
+
+    return records
+
+
+st.set_page_config(
+    page_title="Nuclear News Story Dashboard",
+    page_icon=":bar_chart:",
+    layout="wide",
+)
+
+st.title("Nuclear News Story Dashboard")
+st.caption(
+    "A presentation-friendly view of what the combined ANS and World Nuclear article set is saying."
+)
+
+records = load_dashboard_data()
+
+if not records:
     st.warning("No articles found.")
     st.stop()
 
+df = pd.DataFrame(records)
 
-sentiment_cache = load_sentiment_cache(CACHE_FILE)
-updated = False
-
-for file in files:
-    if file not in sentiment_cache:
-        with open(os.path.join(ARTICLE_FOLDER, file), "r", encoding="utf-8") as f:
-            text = f.read()
-
-        score = analyze_sentiment(text, model)
-        sentiment_cache[file] = score
-        updated = True
-
-if updated:
-    save_sentiment_cache(CACHE_FILE, sentiment_cache)
-
-#single article view
-selected_file = st.selectbox("Choose an article", files)
-
-if selected_file:
-    with open(os.path.join(ARTICLE_FOLDER, selected_file), "r", encoding="utf-8") as f:
-        text = f.read()
-
-    st.subheader("Word Frequency (Stopwords Removed)")
-    freq_data = get_word_frequency(text)
-
-    words = [w[0] for w in freq_data]
-    counts = [w[1] for w in freq_data]
-
-    fig, ax = plt.subplots()
-    ax.bar(words, counts)
-    plt.xticks(rotation=45)
-    st.pyplot(fig)
-
-    score = sentiment_cache[selected_file]
-
-    if score > 0.05:
-        label = "Positive"
-    elif score < -0.05:
-        label = "Negative"
-    else:
-        label = "Neutral"
-
-    st.subheader("Sentiment (BERT)")
-    st.write(f"Sentiment: **{label}**")
-    st.write(f"Score: {round(score, 3)}")
-
-
-
-
-
-
-st.subheader("Overall Sentiment Distribution")
-
-positive = 0
-negative = 0
-neutral = 0
-
-for score in sentiment_cache.values():
-    if score > 0.05:
-        positive += 1
-    elif score < -0.05:
-        negative += 1
-
-
-labels = ["Positive", "Negative"]
-values = [positive, negative]
-
-fig3, ax3 = plt.subplots()
-ax3.bar(labels, values)
-ax3.set_ylabel("Number of Articles")
-ax3.set_title("Total Sentiment Distribution")
-st.pyplot(fig3)
-
-
-
-
-# word Frequency (all)
-
-st.subheader("Top Overall Word Frequency")
-
-
-
-overall_counter = Counter()
-
-for file in files:
-    with open(os.path.join(ARTICLE_FOLDER, file), "r", encoding="utf-8") as f:
-        text = f.read()
-
-    cleaned = clean_text(text)
-    tokens = cleaned.split()
-    tokens = remove_proper_nouns(tokens)
-
-    words = [
-        w for w in tokens
-        if w not in STOPWORDS
-        and w not in NOISE_WORDS
-        and len(w) > 3
-    ]
-
-    overall_counter = Counter({
-    w: c for w, c in overall_counter.items() if c > 2
-})
-
-top_words = overall_counter.most_common(20)
-
-if top_words:
-    words = [w[0] for w in top_words]
-    counts = [w[1] for w in top_words]
-
-    fig4, ax4 = plt.subplots()
-    ax4.bar(words, counts)
-    ax4.set_title("Top 20 Words (All Articles)")
-    plt.xticks(rotation=45)
-    st.pyplot(fig4)
-    
-    
-
-# positive vs negative words
-st.subheader("Vocabulary Comparison: Positive vs Negative Articles")
-
-
-positive_counter = Counter()
-negative_counter = Counter()
-
-for file, score in sentiment_cache.items():
-    if score > 0.05:
-        category = "positive"
-    elif score < -0.05:
-        category = "negative"
-    else:
-        continue  # skip neutral
-
-    with open(os.path.join(ARTICLE_FOLDER, file), "r", encoding="utf-8") as f:
-        text = f.read()
-
-    cleaned = clean_text(text)
-    tokens = cleaned.split()
-    tokens = remove_proper_nouns(tokens)
-
-    words = [
-        w for w in tokens
-        if w not in STOPWORDS
-        and w not in NOISE_WORDS
-        and len(w) > 3
-    ]
-
-    if category == "positive":
-        positive_counter.update(words)
-    else:
-        negative_counter.update(words)
-    positive_counter = Counter({
-        w: c for w, c in positive_counter.items() if c > 2
-    })
-    negative_counter = Counter({
-        w: c for w, c in negative_counter.items() if c > 2
-    })
-
-top_positive = positive_counter.most_common(15)
-top_negative = negative_counter.most_common(15)
-
-# plot positive
-if top_positive:
-    words_pos = [w[0] for w in top_positive]
-    counts_pos = [w[1] for w in top_positive]
-
-    fig_pos, ax_pos = plt.subplots()
-    ax_pos.bar(words_pos, counts_pos)
-    ax_pos.set_title("Top Words in Positive Articles")
-    plt.xticks(rotation=45)
-    st.pyplot(fig_pos)
-
-# plot negative
-if top_negative:
-    words_neg = [w[0] for w in top_negative]
-    counts_neg = [w[1] for w in top_negative]
-
-    fig_neg, ax_neg = plt.subplots()
-    ax_neg.bar(words_neg, counts_neg)
-    ax_neg.set_title("Top Words in Negative Articles")
-    plt.xticks(rotation=45)
-    st.pyplot(fig_neg)
-    
-#TFDIF
-
-#TFDIF preprocess clean text
-def preprocess_for_tfidf(text):
-    cleaned = clean_text(text)
-    tokens = cleaned.split()
-    tokens = remove_proper_nouns(tokens)
-
-    tokens = [
-        w for w in tokens
-        if w not in STOPWORDS
-        and w not in NOISE_WORDS
-        and len(w) > 3
-    ]
-
-    return " ".join(tokens)
-
-st.subheader("TF-IDF Comparison (Positive vs Negative)")
-
-positive_docs = []
-negative_docs = []
-
-for file, score in sentiment_cache.items():
-    with open(os.path.join(ARTICLE_FOLDER, file), "r", encoding="utf-8") as f:
-        text = f.read()
-
-    processed = preprocess_for_tfidf(text)
-
-    if score > 0.05:
-        positive_docs.append(processed)
-    elif score < -0.05:
-        negative_docs.append(processed)
-
-if positive_docs and negative_docs:
-
-    # combine for vector
-    all_docs = positive_docs + negative_docs
-    labels = ["positive"] * len(positive_docs) + ["negative"] * len(negative_docs)
-
-    vectorizer = TfidfVectorizer(
-        stop_words="english", 
-        ngram_range=(1, 2),     
-        min_df=2,               
-        max_df=0.85 
+with st.sidebar:
+    st.header("View Options")
+    selected_sentiments = st.multiselect(
+        "Sentiment",
+        options=["Positive", "Neutral", "Negative"],
+        default=["Positive", "Neutral", "Negative"],
     )
 
-    tfidf_matrix = vectorizer.fit_transform(all_docs)
-    feature_names = vectorizer.get_feature_names_out()
+filtered_df = df[df["sentiment_label"].isin(selected_sentiments)].copy()
 
+if filtered_df.empty:
+    st.warning("No articles match the selected filters.")
+    st.stop()
 
+total_articles = len(filtered_df)
+positive_share = (filtered_df["sentiment_label"] == "Positive").mean() * 100
+negative_share = (filtered_df["sentiment_label"] == "Negative").mean() * 100
+neutral_share = (filtered_df["sentiment_label"] == "Neutral").mean() * 100
+average_length = int(filtered_df["word_count"].mean())
 
- 
-    pos_matrix = tfidf_matrix[:len(positive_docs)]
-    neg_matrix = tfidf_matrix[len(positive_docs):]
+st.markdown("### Executive Summary")
+metric_1, metric_2, metric_3, metric_4, metric_5 = st.columns(5)
+metric_1.metric("Articles Reviewed", f"{total_articles}")
+metric_2.metric("Positive Tone", f"{positive_share:.0f}%")
+metric_3.metric("Negative Tone", f"{negative_share:.0f}%")
+metric_4.metric("Neutral Tone", f"{neutral_share:.0f}%")
+metric_5.metric("Average Article Length", f"{average_length} words")
 
-    pos_mean = np.mean(pos_matrix.toarray(), axis=0)
-    neg_mean = np.mean(neg_matrix.toarray(), axis=0)
+st.markdown("### Tone Breakdown")
+sentiment_summary = (
+    filtered_df.groupby(["sentiment_label"])
+    .size()
+    .reset_index(name="articles")
+)
 
-    diff = pos_mean - neg_mean
-
-    # top positive-skew words
-    top_pos_idx = diff.argsort()[-15:][::-1]
-    top_neg_idx = diff.argsort()[:15]
-
-    # plot positive 
-    fig1, ax1 = plt.subplots()
-    ax1.bar(feature_names[top_pos_idx], diff[top_pos_idx])
-    ax1.set_title("TF-IDF Words More Associated with Positive Articles")
-    plt.xticks(rotation=45)
-    st.pyplot(fig1)
-
-    # plot negative
-    fig2, ax2 = plt.subplots()
-    ax2.bar(feature_names[top_neg_idx], abs(diff[top_neg_idx]))
-    ax2.set_title("TF-IDF Words More Associated with Negative Articles")
-    plt.xticks(rotation=45)
-    st.pyplot(fig2)
-
-else:
-    st.write("Not enough positive and negative articles for comparison.")
-    
-
-
-#topic modeling
-st.subheader("Topic Modeling per Sentiment")
-
-
-def show_topics(model, feature_names, n_top_words=10):
-    topics = []
-    for topic_idx, topic in enumerate(model.components_):
-        top_words = [feature_names[i] for i in topic.argsort()[:-n_top_words - 1:-1]]
-        topics.append(", ".join(top_words))
-    return topics
-
-def run_lda(docs, title):
-    if len(docs) < 5:
-        st.write(f"Not enough documents for {title} topic modeling.")
-        return
-
-    vectorizer = CountVectorizer(
-        stop_words=list(STOPWORDS),
-        max_features=2000
+sentiment_chart = (
+    alt.Chart(sentiment_summary)
+    .mark_bar(cornerRadiusTopLeft=6, cornerRadiusTopRight=6)
+    .encode(
+        x=alt.X(
+            "sentiment_label:N",
+            sort=["Positive", "Neutral", "Negative"],
+            title=None,
+        ),
+        y=alt.Y("articles:Q", title="Number of articles"),
+        color=alt.Color(
+            "sentiment_label:N",
+            title="Tone",
+            scale=alt.Scale(
+                domain=["Positive", "Neutral", "Negative"],
+                range=["#2E8B57", "#C9A227", "#B22222"],
+            ),
+        ),
+        tooltip=["sentiment_label", "articles"],
     )
+    .properties(height=340)
+)
+st.altair_chart(sentiment_chart, use_container_width=True)
 
-    doc_term_matrix = vectorizer.fit_transform(docs)
+st.markdown("### How Strong The Tone Is")
+score_bins = pd.cut(
+    filtered_df["sentiment_score"],
+    bins=[-1.0, -0.6, -0.2, 0.2, 0.6, 1.0],
+    labels=[
+        "Strongly Negative",
+        "Leaning Negative",
+        "Balanced / Mixed",
+        "Leaning Positive",
+        "Strongly Positive",
+    ],
+    include_lowest=True,
+)
+score_distribution = (
+    score_bins.value_counts(sort=False)
+    .rename_axis("Tone Range")
+    .reset_index(name="Articles")
+)
 
-    lda = LatentDirichletAllocation(
-        n_components=3,
-        random_state=42
+score_chart = (
+    alt.Chart(score_distribution)
+    .mark_bar(cornerRadiusTopLeft=6, cornerRadiusTopRight=6, color="#6A8CAF")
+    .encode(
+        x=alt.X("Tone Range:N", title=None, sort=list(score_distribution["Tone Range"])),
+        y=alt.Y("Articles:Q", title="Number of articles"),
+        tooltip=["Tone Range", "Articles"],
     )
+    .properties(height=320)
+)
+st.altair_chart(score_chart, use_container_width=True)
 
-    lda.fit(doc_term_matrix)
+st.markdown("### Main Themes People Keep Returning To")
+theme_df = build_theme_table(filtered_df.to_dict("records"), limit=12)
 
-    feature_names = vectorizer.get_feature_names_out()
-    topics = show_topics(lda, feature_names)
+theme_chart = (
+    alt.Chart(theme_df)
+    .mark_bar(cornerRadiusTopLeft=6, cornerRadiusTopRight=6, color="#2F6B7C")
+    .encode(
+        x=alt.X("Theme:N", sort="-y", title=None),
+        y=alt.Y("Mentions:Q", title="How often the theme appears"),
+        tooltip=["Theme", "Mentions"],
+    )
+    .properties(height=340)
+)
+st.altair_chart(theme_chart, use_container_width=True)
 
-    st.write(f"### {title} Topics")
-    for i, topic in enumerate(topics):
-        st.write(f"Topic {i+1}: {topic}")
+st.markdown("### Article Depth")
+length_bins = pd.cut(
+    filtered_df["word_count"],
+    bins=[0, 300, 600, 1000, 2000, 100000],
+    labels=[
+        "Under 300",
+        "300-600",
+        "600-1,000",
+        "1,000-2,000",
+        "2,000+",
+    ],
+    include_lowest=True,
+)
+length_distribution = (
+    length_bins.value_counts(sort=False)
+    .rename_axis("Article Length")
+    .reset_index(name="Articles")
+)
 
-# run lda separately
-run_lda(positive_docs, "Positive Articles");
+length_chart = (
+    alt.Chart(length_distribution)
+    .mark_bar(cornerRadiusTopLeft=6, cornerRadiusTopRight=6, color="#9C755F")
+    .encode(
+        x=alt.X("Article Length:N", title=None, sort=list(length_distribution["Article Length"])),
+        y=alt.Y("Articles:Q", title="Number of articles"),
+        tooltip=["Article Length", "Articles"],
+    )
+    .properties(height=320)
+)
+st.altair_chart(length_chart, use_container_width=True)
 
-run_lda(negative_docs, "Negative Articles")
+st.markdown("### Themes By Tone")
+tone_theme_col1, tone_theme_col2 = st.columns(2)
+
+positive_theme_df = build_theme_table_for_frame(
+    filtered_df[filtered_df["sentiment_label"] == "Positive"], limit=8
+)
+negative_theme_df = build_theme_table_for_frame(
+    filtered_df[filtered_df["sentiment_label"] == "Negative"], limit=8
+)
+
+with tone_theme_col1:
+    st.markdown("#### Positive Coverage Themes")
+    if not positive_theme_df.empty:
+        positive_theme_chart = (
+            alt.Chart(positive_theme_df)
+            .mark_bar(cornerRadiusTopLeft=6, cornerRadiusTopRight=6, color="#2E8B57")
+            .encode(
+                x=alt.X("Theme:N", sort="-y", title=None),
+                y=alt.Y("Mentions:Q", title="Mentions"),
+                tooltip=["Theme", "Mentions"],
+            )
+            .properties(height=320)
+        )
+        st.altair_chart(positive_theme_chart, use_container_width=True)
+    else:
+        st.write("No positive-theme data available.")
+
+with tone_theme_col2:
+    st.markdown("#### Negative Coverage Themes")
+    if not negative_theme_df.empty:
+        negative_theme_chart = (
+            alt.Chart(negative_theme_df)
+            .mark_bar(cornerRadiusTopLeft=6, cornerRadiusTopRight=6, color="#B22222")
+            .encode(
+                x=alt.X("Theme:N", sort="-y", title=None),
+                y=alt.Y("Mentions:Q", title="Mentions"),
+                tooltip=["Theme", "Mentions"],
+            )
+            .properties(height=320)
+        )
+        st.altair_chart(negative_theme_chart, use_container_width=True)
+    else:
+        st.write("No negative-theme data available.")
+
+st.markdown("### Standout Articles")
+standout_col1, standout_col2 = st.columns(2)
+
+most_positive = filtered_df.nlargest(5, "sentiment_score")[
+    ["filename", "sentiment_label", "sentiment_score", "word_count"]
+].copy()
+most_negative = filtered_df.nsmallest(5, "sentiment_score")[
+    ["filename", "sentiment_label", "sentiment_score", "word_count"]
+].copy()
+
+most_positive.columns = ["Article", "Tone", "Score", "Words"]
+most_negative.columns = ["Article", "Tone", "Score", "Words"]
+most_positive["Score"] = most_positive["Score"].round(3)
+most_negative["Score"] = most_negative["Score"].round(3)
+
+with standout_col1:
+    st.markdown("#### Most Positive Articles")
+    st.dataframe(most_positive, use_container_width=True, hide_index=True)
+
+with standout_col2:
+    st.markdown("#### Most Negative Articles")
+    st.dataframe(most_negative, use_container_width=True, hide_index=True)
+
+st.markdown("### Article Explorer")
+selected_article_id = st.selectbox(
+    "Choose an article to discuss",
+    filtered_df["article_id"].tolist(),
+    format_func=lambda article_id: filtered_df.set_index("article_id").loc[article_id, "filename"],
+)
+
+selected_row = filtered_df.set_index("article_id").loc[selected_article_id]
+
+article_col, freq_col = st.columns([1.2, 1])
+
+with article_col:
+    st.markdown(f"#### {selected_row['filename']}")
+    st.caption(
+        f"Tone: {selected_row['sentiment_label']} | "
+        f"Length: {int(selected_row['word_count'])} words"
+    )
+    st.text_area("Article text", selected_row["text"], height=340)
+
+with freq_col:
+    freq_data = get_word_frequency(selected_row["text"], top_n=10)
+    freq_df = pd.DataFrame(freq_data, columns=["Word", "Count"])
+
+    st.markdown("#### Most repeated words")
+    if not freq_df.empty:
+        freq_chart = (
+            alt.Chart(freq_df)
+            .mark_bar(cornerRadiusTopLeft=6, cornerRadiusTopRight=6, color="#8C5E3C")
+            .encode(
+                x=alt.X("Word:N", sort="-y", title=None),
+                y=alt.Y("Count:Q", title="Mentions"),
+                tooltip=["Word", "Count"],
+            )
+            .properties(height=300)
+        )
+        st.altair_chart(freq_chart, use_container_width=True)
+    else:
+        st.write("No repeated words available for this article.")
