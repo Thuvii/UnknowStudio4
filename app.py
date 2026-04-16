@@ -14,6 +14,7 @@ from nlp_utils_copy import (
     load_sentiment_model,
     remove_proper_nouns,
     save_sentiment_cache,
+    get_topics,
 )
 
 
@@ -394,6 +395,36 @@ with standout_col1:
 with standout_col2:
     st.markdown("#### Most Negative Articles")
     st.dataframe(most_negative, use_container_width=True, hide_index=True)
+
+
+
+st.markdown("### Topics by Sentiment")
+
+pos_texts = filtered_df[
+    filtered_df["sentiment_label"] == "Positive"
+]["tokens"].apply(lambda x: " ".join(x))
+
+neg_texts = filtered_df[
+    filtered_df["sentiment_label"] == "Negative"
+]["tokens"].apply(lambda x: " ".join(x))
+
+pos_topics = get_topics(pos_texts.tolist())
+neg_topics = get_topics(neg_texts.tolist())
+
+col1, col2 = st.columns(2)
+
+with col1:
+    st.markdown("#### Positive Topics")
+    for i, topic in enumerate(pos_topics):
+        st.write(f"Topic {i+1}: {topic}")
+
+with col2:
+    st.markdown("#### Negative Topics")
+    for i, topic in enumerate(neg_topics):
+        st.write(f"Topic {i+1}: {topic}")
+
+
+
 
 st.markdown("### Article Explorer")
 selected_article_id = st.selectbox(

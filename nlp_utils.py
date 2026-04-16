@@ -13,7 +13,7 @@ from nltk.corpus import stopwords
 def load_sentiment_model():
     return pipeline(
         "sentiment-analysis",
-        model="distilbert-base-uncased-finetuned-sst-2-english",
+        model="ProsusAI/finbert",
         truncation=True,
         max_length=512
     )

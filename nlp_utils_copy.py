@@ -9,6 +9,9 @@ from nltk import pos_tag
 
 from transformers import pipeline, AutoTokenizer
 
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.decomposition import LatentDirichletAllocation
+
 try:
     from sentence_transformers import SentenceTransformer
 except ImportError:
@@ -29,7 +32,7 @@ except LookupError:
         nltk.download("averaged_perceptron_tagger")
 
 STOPWORDS = set(stopwords.words("english"))
-SENTIMENT_MODEL_NAME = "distilbert-base-uncased-finetuned-sst-2-english"
+SENTIMENT_MODEL_NAME ="ProsusAI/finbert"
 SENTIMENT_TOKENIZER = AutoTokenizer.from_pretrained(SENTIMENT_MODEL_NAME)
 
 # load bert model
@@ -39,7 +42,7 @@ def load_sentiment_model():
         model=SENTIMENT_MODEL_NAME,
         tokenizer=SENTIMENT_TOKENIZER,
         truncation=True,
-        max_length=SENTIMENT_TOKENIZER.model_max_length,
+        max_length=512,
     )
 
 #clean text
@@ -102,14 +105,18 @@ def analyze_sentiment(text, model):
             max_length=SENTIMENT_TOKENIZER.model_max_length,
         )[0]
 
-        if result["label"] == "POSITIVE":
-            score += result["score"]
-        else:
-            score -= result["score"]
+        label = result["label"].lower()
 
+        if label == "positive":
+            score += result["score"]
+        elif label == "negative":
+            score -= result["score"]
+        else:
+            score += 0
+        
         count += 1
 
-    return score / count if count > 0 else 0.0
+    return score / max(count, 1) if count > 0 else 0.0
 
 # ---- not yet use
 def extract_date_from_filename(filename):
@@ -138,6 +145,34 @@ def save_sentiment_cache(cache_file, cache_dict):
             writer.writerow([filename, score])
 
 
+# testing topic modeling
+def get_topics(texts, n_topics=3, n_words=6):
+    if len(texts) < 5:
+        return []
+
+    vectorizer = TfidfVectorizer(
+        max_df=0.9,
+        min_df=2,
+        stop_words="english"
+    )
+
+    X = vectorizer.fit_transform(texts)
+
+    lda = LatentDirichletAllocation(
+        n_components=n_topics,
+        random_state=42
+    )
+
+    lda.fit(X)
+
+    words = vectorizer.get_feature_names_out()
+
+    topics = []
+    for topic in lda.components_:
+        top_words = [words[i] for i in topic.argsort()[-n_words:]]
+        topics.append(", ".join(top_words[::-1]))
+
+    return topics
 
 #streamlit stuff
 
