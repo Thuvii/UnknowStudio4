@@ -1,6 +1,6 @@
 import os
 from collections import Counter
-
+import csv
 import altair as alt
 import pandas as pd
 import streamlit as st
@@ -15,6 +15,8 @@ from nlp_utils_copy import (
     remove_proper_nouns,
     save_sentiment_cache,
     get_topics,
+    evaluate_model,
+    load_labels
 )
 
 
@@ -424,14 +426,15 @@ with standout_col2:
 #         st.write(f"Topic {i+1}: {topic}")
 
 
-
-
 st.markdown("### Article Explorer")
+df_indexed = filtered_df.set_index("article_id")
 selected_article_id = st.selectbox(
     "Choose an article to discuss",
-    filtered_df["article_id"].tolist(),
-    format_func=lambda article_id: filtered_df.set_index("article_id").loc[article_id, "filename"],
+    df_indexed.index.tolist(),
+    format_func=lambda article_id: df_indexed.loc[article_id, "filename"],
 )
+
+selected_row = df_indexed.loc[selected_article_id]
 
 selected_row = filtered_df.set_index("article_id").loc[selected_article_id]
 
@@ -441,6 +444,7 @@ with article_col:
     st.markdown(f"#### {selected_row['filename']}")
     st.caption(
         f"Tone: {selected_row['sentiment_label']} | "
+         f"Score: {selected_row['sentiment_score']:.3f} | "
         f"Length: {int(selected_row['word_count'])} words"
     )
     st.text_area("Article text", selected_row["text"], height=340)
@@ -464,3 +468,14 @@ with freq_col:
         st.altair_chart(freq_chart, use_container_width=True)
     else:
         st.write("No repeated words available for this article.")
+
+
+st.markdown("### Evaluation")
+
+labels = load_labels("labels.csv")
+acc, report, matrix = evaluate_model(records, labels, get_model())
+
+st.metric("accuracy", f"{acc:.2f}")
+st.text(report)
+st.write("confusion matrix")
+st.write(matrix)

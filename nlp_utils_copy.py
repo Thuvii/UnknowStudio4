@@ -188,3 +188,58 @@ def get_topics(texts, n_topics=3, n_words=6):
 #     prompt = f"Explain this in simple terms: {text}"
 #     result = model(prompt, max_length=100)[0]["generated_text"]
 #     return result
+
+
+
+def load_labels(path):
+    labels = {}
+
+    with open(path, "r", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+
+        for row in reader:
+            labels[row["article_id"]] = row["label"]
+
+    return labels
+def score_to_label(score):
+    if score > 0.2:
+        return "Positive"
+    elif score < -0.2:
+        return "Negative"
+    else:
+        return "Neutral"
+from sklearn.model_selection import StratifiedKFold
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+
+
+def evaluate_model(records, labels_dict, model, k=5):
+    data = []
+
+    for r in records:
+        article_id = r["article_id"]
+        if article_id in labels_dict:
+            data.append((r["text"], labels_dict[article_id]))
+
+    texts, labels = zip(*data)
+
+    skf = StratifiedKFold(n_splits=k, shuffle=True, random_state=42)
+
+    all_true = []
+    all_pred = []
+
+    for _, test_idx in skf.split(texts, labels):
+        for i in test_idx:
+            text = texts[i]
+            true_label = labels[i]
+
+            score = analyze_sentiment(text, model)
+            pred_label = score_to_label(score)
+
+            all_true.append(true_label)
+            all_pred.append(pred_label)
+
+    acc = accuracy_score(all_true, all_pred)
+    report = classification_report(all_true, all_pred)
+    matrix = confusion_matrix(all_true, all_pred)
+
+    return acc, report, matrix
