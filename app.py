@@ -298,36 +298,36 @@ theme_chart = (
 )
 st.altair_chart(theme_chart, use_container_width=True)
 
-st.markdown("### Article Depth")
-length_bins = pd.cut(
-    filtered_df["word_count"],
-    bins=[0, 300, 600, 1000, 2000, 100000],
-    labels=[
-        "Under 300",
-        "300-600",
-        "600-1,000",
-        "1,000-2,000",
-        "2,000+",
-    ],
-    include_lowest=True,
-)
-length_distribution = (
-    length_bins.value_counts(sort=False)
-    .rename_axis("Article Length")
-    .reset_index(name="Articles")
-)
+# st.markdown("### Article Depth")
+# length_bins = pd.cut(
+#     filtered_df["word_count"],
+#     bins=[0, 300, 600, 1000, 2000, 100000],
+#     labels=[
+#         "Under 300",
+#         "300-600",
+#         "600-1,000",
+#         "1,000-2,000",
+#         "2,000+",
+#     ],
+#     include_lowest=True,
+# )
+# length_distribution = (
+#     length_bins.value_counts(sort=False)
+#     .rename_axis("Article Length")
+#     .reset_index(name="Articles")
+# )
 
-length_chart = (
-    alt.Chart(length_distribution)
-    .mark_bar(cornerRadiusTopLeft=6, cornerRadiusTopRight=6, color="#9C755F")
-    .encode(
-        x=alt.X("Article Length:N", title=None, sort=list(length_distribution["Article Length"])),
-        y=alt.Y("Articles:Q", title="Number of articles"),
-        tooltip=["Article Length", "Articles"],
-    )
-    .properties(height=320)
-)
-st.altair_chart(length_chart, use_container_width=True)
+# length_chart = (
+#     alt.Chart(length_distribution)
+#     .mark_bar(cornerRadiusTopLeft=6, cornerRadiusTopRight=6, color="#9C755F")
+#     .encode(
+#         x=alt.X("Article Length:N", title=None, sort=list(length_distribution["Article Length"])),
+#         y=alt.Y("Articles:Q", title="Number of articles"),
+#         tooltip=["Article Length", "Articles"],
+#     )
+#     .properties(height=320)
+# )
+# st.altair_chart(length_chart, use_container_width=True)
 
 st.markdown("### Themes By Tone")
 tone_theme_col1, tone_theme_col2 = st.columns(2)
@@ -398,30 +398,30 @@ with standout_col2:
 
 
 
-st.markdown("### Topics by Sentiment")
+# st.markdown("### Topics by Sentiment")
 
-pos_texts = filtered_df[
-    filtered_df["sentiment_label"] == "Positive"
-]["tokens"].apply(lambda x: " ".join(x))
+# pos_texts = filtered_df[
+#     filtered_df["sentiment_label"] == "Positive"
+# ]["tokens"].apply(lambda x: " ".join(x))
 
-neg_texts = filtered_df[
-    filtered_df["sentiment_label"] == "Negative"
-]["tokens"].apply(lambda x: " ".join(x))
+# neg_texts = filtered_df[
+#     filtered_df["sentiment_label"] == "Negative"
+# ]["tokens"].apply(lambda x: " ".join(x))
 
-pos_topics = get_topics(pos_texts.tolist())
-neg_topics = get_topics(neg_texts.tolist())
+# pos_topics = get_topics(pos_texts.tolist())
+# neg_topics = get_topics(neg_texts.tolist())
 
-col1, col2 = st.columns(2)
+# col1, col2 = st.columns(2)
 
-with col1:
-    st.markdown("#### Positive Topics")
-    for i, topic in enumerate(pos_topics):
-        st.write(f"Topic {i+1}: {topic}")
+# with col1:
+#     st.markdown("#### Positive Topics")
+#     for i, topic in enumerate(pos_topics):
+#         st.write(f"Topic {i+1}: {topic}")
 
-with col2:
-    st.markdown("#### Negative Topics")
-    for i, topic in enumerate(neg_topics):
-        st.write(f"Topic {i+1}: {topic}")
+# with col2:
+#     st.markdown("#### Negative Topics")
+#     for i, topic in enumerate(neg_topics):
+#         st.write(f"Topic {i+1}: {topic}")
 
 
 

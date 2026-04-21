@@ -12,10 +12,7 @@ from transformers import pipeline, AutoTokenizer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.decomposition import LatentDirichletAllocation
 
-try:
-    from sentence_transformers import SentenceTransformer
-except ImportError:
-    SentenceTransformer = None
+
 
 try:
     from nltk.corpus import stopwords
@@ -32,7 +29,7 @@ except LookupError:
         nltk.download("averaged_perceptron_tagger")
 
 STOPWORDS = set(stopwords.words("english"))
-SENTIMENT_MODEL_NAME ="ProsusAI/finbert"
+SENTIMENT_MODEL_NAME ="distilbert-base-uncased-finetuned-sst-2-english"
 SENTIMENT_TOKENIZER = AutoTokenizer.from_pretrained(SENTIMENT_MODEL_NAME)
 
 # load bert model
@@ -119,11 +116,11 @@ def analyze_sentiment(text, model):
     return score / max(count, 1) if count > 0 else 0.0
 
 # ---- not yet use
-def extract_date_from_filename(filename):
-    match = re.search(r"\d{4}-\d{2}-\d{2}", filename)
-    if match:
-        return datetime.strptime(match.group(), "%Y-%m-%d")
-    return None
+# def extract_date_from_filename(filename):
+#     match = re.search(r"\d{4}-\d{2}-\d{2}", filename)
+#     if match:
+#         return datetime.strptime(match.group(), "%Y-%m-%d")
+#     return None
 
 #cache
 def load_sentiment_cache(cache_file):
@@ -176,18 +173,18 @@ def get_topics(texts, n_topics=3, n_words=6):
 
 #streamlit stuff
 
-def load_embed_model():
-    if SentenceTransformer is None:
-        raise ImportError("sentence_transformers is required for embedding features")
-    return SentenceTransformer("all-MiniLM-L6-v2")
+# def load_embed_model():
+#     if SentenceTransformer is None:
+#         raise ImportError("sentence_transformers is required for embedding features")
+#     return SentenceTransformer("all-MiniLM-L6-v2")
 
-def load_explainer():
-    return pipeline("text2text-generation", model="google/flan-t5-small")
+# def load_explainer():
+#     return pipeline("text2text-generation", model="google/flan-t5-small")
 
-def embed_summaries(model, summaries):
-    return model.encode(summaries, convert_to_tensor=True)
+# def embed_summaries(model, summaries):
+#     return model.encode(summaries, convert_to_tensor=True)
 
-def explain_text(model, text):
-    prompt = f"Explain this in simple terms: {text}"
-    result = model(prompt, max_length=100)[0]["generated_text"]
-    return result
+# def explain_text(model, text):
+#     prompt = f"Explain this in simple terms: {text}"
+#     result = model(prompt, max_length=100)[0]["generated_text"]
+#     return result
