@@ -285,7 +285,7 @@ score_chart = (
 )
 st.altair_chart(score_chart, use_container_width=True)
 
-st.markdown("### Main Themes People Keep Returning To")
+st.markdown("### Main Themes")
 theme_df = build_theme_table(filtered_df.to_dict("records"), limit=12)
 
 theme_chart = (
@@ -375,28 +375,28 @@ with tone_theme_col2:
     else:
         st.write("No negative-theme data available.")
 
-st.markdown("### Standout Articles")
-standout_col1, standout_col2 = st.columns(2)
+# st.markdown("### Standout Articles")
+# standout_col1, standout_col2 = st.columns(2)
 
-most_positive = filtered_df.nlargest(5, "sentiment_score")[
-    ["filename", "sentiment_label", "sentiment_score", "word_count"]
-].copy()
-most_negative = filtered_df.nsmallest(5, "sentiment_score")[
-    ["filename", "sentiment_label", "sentiment_score", "word_count"]
-].copy()
+# most_positive = filtered_df.nlargest(5, "sentiment_score")[
+#     ["filename", "sentiment_label", "sentiment_score", "word_count"]
+# ].copy()
+# most_negative = filtered_df.nsmallest(5, "sentiment_score")[
+#     ["filename", "sentiment_label", "sentiment_score", "word_count"]
+# ].copy()
 
-most_positive.columns = ["Article", "Tone", "Score", "Words"]
-most_negative.columns = ["Article", "Tone", "Score", "Words"]
-most_positive["Score"] = most_positive["Score"].round(3)
-most_negative["Score"] = most_negative["Score"].round(3)
+# most_positive.columns = ["Article", "Tone", "Score", "Words"]
+# most_negative.columns = ["Article", "Tone", "Score", "Words"]
+# most_positive["Score"] = most_positive["Score"].round(3)
+# most_negative["Score"] = most_negative["Score"].round(3)
 
-with standout_col1:
-    st.markdown("#### Most Positive Articles")
-    st.dataframe(most_positive, use_container_width=True, hide_index=True)
+# with standout_col1:
+#     st.markdown("#### Most Positive Articles")
+#     st.dataframe(most_positive, use_container_width=True, hide_index=True)
 
-with standout_col2:
-    st.markdown("#### Most Negative Articles")
-    st.dataframe(most_negative, use_container_width=True, hide_index=True)
+# with standout_col2:
+#     st.markdown("#### Most Negative Articles")
+#     st.dataframe(most_negative, use_container_width=True, hide_index=True)
 
 
 
@@ -470,12 +470,12 @@ with freq_col:
         st.write("No repeated words available for this article.")
 
 
-st.markdown("### Evaluation")
+# st.markdown("### Evaluation")
 
-labels = load_labels("labels.csv")
-acc, report, matrix = evaluate_model(records, labels, get_model())
+# labels = load_labels("labels.csv")
+# acc, report, matrix = evaluate_model(records, labels, get_model())
 
-st.metric("accuracy", f"{acc:.2f}")
-st.text(report)
-st.write("confusion matrix")
-st.write(matrix)
+# st.metric("accuracy", f"{acc:.2f}")
+# st.text(report)
+# st.write("confusion matrix")
+# st.write(matrix)
